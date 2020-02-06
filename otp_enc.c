@@ -19,11 +19,11 @@ int main(int argc, char *argv[])
 	char message[100000];
 	char key[100000];
 
-	if (argc < 3) { fprintf(stderr,"USAGE: %s hostname port\n", argv[0]); exit(0); }
+//	if (argc < 3) { fprintf(stderr,"USAGE: %s hostname port\n", argv[0]); exit(0); }
 
 	memset((char*)&serverAddress, '\0', sizeof(serverAddress));
-	portNumber = atoi(argv[3]);
-	serverAddress.sin_family = AF_INET; 
+	portNumber = 3000;
+	serverAddress.sin_family = AF_INET;
 	serverAddress.sin_port = htons(portNumber);
 	serverHostInfo = gethostbyname("localhost");
 	if (serverHostInfo == NULL) { fprintf(stderr, "CLIENT: ERROR, no such host\n"); exit(0); }
@@ -40,6 +40,7 @@ int main(int argc, char *argv[])
     FILE *inMess;
     char cMess;
     int countMess = 0;
+		printf("TEST: 1");
     inMess = fopen(argv[1], "r");
 
     fseek(inMess, 0L, SEEK_END);
@@ -51,36 +52,14 @@ int main(int argc, char *argv[])
     }
     cMess = fgetc(inMess);
     while (cMess != EOF){
-	if ((!isupper(cMess)) && (cMess != ' ') && (cMess != '\n')){
-	    printf("Input contains bad characters.");
-	    exit(1);
-	}
         cMess = fgetc(inMess);
         countMess++;
     }
 	fclose(inMess);
 
-    FILE *inKey;
-    char cKey;
-    int countKey = 0;
-    inKey = fopen(argv[2], "r");
-    cKey = fgetc(inKey);
-    while (cKey != EOF){
-        cKey = fgetc(inKey);
-        countKey++;
-    }
-	fclose(inKey);
-
-	if (countKey < countMess){
-		fprintf(stderr, "The size of the key is too small.");
-		exit(1);
-	}
 
 	char file_Len[11];
 	sprintf(file_Len, "%d", countMess);
-
-	char key_Len[11];
-	sprintf(key_Len, "%d", countKey);
 
 
 	char src[] = "*";
@@ -89,14 +68,14 @@ int main(int argc, char *argv[])
 	}
 
 	send(socketFD, file_Len, strlen(file_Len), 0);
-
+/*
 	char srcTwo[] = "*";
 	while (strlen(key_Len) < 10){
 		strncat(key_Len, srcTwo, 1);
 	}
 
 	send(socketFD, key_Len, strlen(key_Len), 0);
-
+*/
     inMess = fopen(argv[1], "r");
 	while(fgets(message, sizeof(message)-1, inMess));
     fclose(inMess);
@@ -105,7 +84,7 @@ int main(int argc, char *argv[])
 	if (charsWritten < 0) error("CLIENT: ERROR writing to socket");
 	if (charsWritten < strlen(message)) printf("CLIENT: WARNING: Not all data written to socket!\n");
 
-
+/*
     inKey = fopen(argv[2], "r");
 	while(fgets(key, sizeof(key)-1, inKey));
 	fclose(inKey);
@@ -113,12 +92,7 @@ int main(int argc, char *argv[])
 	charsWritten = send(socketFD, key, keyLen+1, MSG_WAITALL);
 	if (charsWritten < 0) error("CLIENT: ERROR writing to socket");
 	if (charsWritten < strlen(key)) printf("CLIENT: WARNING: Not all data written to socket!\n");
-
-	char ciphertext[messLen];
-	charsRead = recv(socketFD, ciphertext, messLen+1, MSG_WAITALL);
-	if (charsRead < 0) error("ERROR reading from socket");
-
-	printf("%s\n", ciphertext); // Message is printed
+*/
 	close(socketFD);	// Socket is closed
 
 	return 0;
