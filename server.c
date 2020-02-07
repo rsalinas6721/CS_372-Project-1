@@ -12,8 +12,12 @@ void error(const char *msg) { perror(msg); exit(1); }
 int main(int argc, char *argv[])
 {
 	int BUFFSIZE = 500;
-	char mess[BUFFSIZE];
+	char mess[500];
+	char response[500];
 	int nread = 0;
+	int c;
+	char clientHandle[11];
+
 	int listenSocketFD, establishedConnectionFD, portNumber, charsWritten;
 	socklen_t sizeOfClientInfo;
 	int status;
@@ -34,10 +38,24 @@ int main(int argc, char *argv[])
 		sizeOfClientInfo = sizeof(clientAddress);
 		establishedConnectionFD = accept(listenSocketFD, (struct sockaddr *)&clientAddress, &sizeOfClientInfo);
 		if (establishedConnectionFD < 0) error("ERROR on accept");
-		bzero(mess, BUFFSIZE);
-		while((nread = read(establishedConnectionFD, mess, BUFFSIZE)) > 0){
-			printf("%s\n", mess);
-
+		bzero(mess, 500);
+		memset(clientHandle, '\0', 11);
+		memset(response, '\0', 500);
+//		read(establishedConnectionFD, clientHandle, 11);
+		while(1){
+			read(establishedConnectionFD, mess, BUFFSIZE);
+			printf("%s: %s\n", clientHandle, mess);
+			memset(mess, '\0', 500);
+			printf("%s ", ">>>");
+			fgets(response, 500, stdin);
+			strtok(response, "\n");
+			printf("%s \n", response);
+			if (strcmp(response, "quit") == 0){
+				printf("%s \n", "MATCH!");
+				break;
+			}
+			write(establishedConnectionFD, response, BUFFSIZE);
+			memset(response, '\0', 500);
 		}
 		close(establishedConnectionFD);
 	}
