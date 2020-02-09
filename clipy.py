@@ -1,29 +1,30 @@
 import socket
 import sys
-import ctypes
-import binascii
-
-def error():
-	print("An Error Occured!")
-	exit(0)
 
 
 def main():
-	PORT = input("Enter Port Number: ")
-	PORT = int(PORT)
-	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	sock.connect(('localhost', PORT))
+	portNumber = input("Enter Port Number: ")
+	HANDLE = input("Enter Handle: ")
+	serverAddress = input("Enter Server IP: ")
+	portNumber = int(portNumber)
+	establishedConnectionFD = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	establishedConnectionFD.connect((serverAddress, portNumber))
 	while(True):
-		message = input(">>> ")
-		if (message == "quit"):
+		message = input("Enter Message:>> ")
+		if (message == "\\quit"):
+			establishedConnectionFD.sendall(message.encode('utf-8'))
+			print("Terminating Connection")
 			break
-		sock.sendall(message.encode('utf-8'))
-		bites = b''
-		while len(bites) < 500:
-			bites += sock.recv(500)
-		bites = bites.decode('utf-8')
-		print(bites, end = '')
-
-
+		message = HANDLE + ":> " + message
+		establishedConnectionFD.sendall(message.encode('utf-8'))
+		print("Waiting on response...")
+		bytes = b''
+		while len(bytes) < 500:
+			bytes += establishedConnectionFD.recv(500)
+		bytes = bytes.decode('utf-8')
+		if (bytes[0] == "\\" and bytes[1] == "q" and bytes[2] == "u" and bytes[3] == "i" and bytes[4] == "t"):
+			print("Server Terminated Connection")
+			exit(0)
+		print(bytes)
 
 main()
