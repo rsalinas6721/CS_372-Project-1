@@ -1,12 +1,10 @@
-# Program Name: Server Portion of Client/Server Messanger Application
+# Program Name: Server Portion of Client/Server Messenger Application
 # Programmer Name: Ricky Salinas
 # Course Name: OSU CS372
 # Last Modified: 9 FEB 2020
 
-
 import socket
 import sys
-
 
 # Pre Conditions: This program does not require any pre-conditions aide that the
 # workstation running this program has some form of network connectivity. This program
