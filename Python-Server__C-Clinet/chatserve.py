@@ -17,8 +17,6 @@ import sys
 # relationship will be created until one host desides to terminate the connection. This program
 # continue to listen for new connections until the progrma is terminated manualy with a SIGNAL.
 
-but can be re-run to re-establish the connection.
-*/
 def main():
 	portNumber = sys.argv[1]					# Port Number Is Retrieved From commandline
 	host ='localhost'							# Host is set to localhost
