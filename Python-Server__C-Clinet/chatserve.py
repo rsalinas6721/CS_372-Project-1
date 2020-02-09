@@ -12,6 +12,13 @@ import sys
 # workstation running this program has some form of network connectivity. This program
 # will be used by the a client to esstablish a client/server messanger relationship.
 
+# Post Conditions: After executing the program correctly, the program will listen on
+# a specific port until a connection is established. Once this occurs, a client/server
+# relationship will be created until one host desides to terminate the connection. This program
+# continue to listen for new connections until the progrma is terminated manualy with a SIGNAL.
+
+but can be re-run to re-establish the connection.
+*/
 def main():
 	portNumber = sys.argv[1]					# Port Number Is Retrieved From commandline
 	host ='localhost'							# Host is set to localhost

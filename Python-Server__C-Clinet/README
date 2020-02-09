@@ -1,0 +1,19 @@
+Ricky Salinas (salinari)
+OSU CS_372 PRoject 1
+
+*The client portion of the assignment is written in C while the server portion is written in Python3.
+* A portion of the source code (setting up the socket) was used from an assignment used in a previous class (OSU CS344). To validate that it was actually my work, I added a copy of the source code from the original assignment titled "USED FOR REFERENCE.c".
+
+
+HOT-TO-COMPILE:
+To compile the client program (chatclient.c), please run the following command "gcc chatclient.c -o chatclient".
+The server program (chatserve.py) does not have to be compiled.
+
+HOW-TO_RUN:
+The chatserve.py program needs to be run first with the following command "python3 chatserve.py PORT#" with a specific port number of your choosing. If this is successfully completed, the program will output "Listening on Port PORT#".
+
+The chatclient can now be run with the following command "./chatclient localhost PORT#" where the port number is the same as the one previously selected in the chatserve.py program. If this is successful, the client will request that a chat handle be entered while the server will validate that a connection was made. The program can now be continued as required by the assignment instructions.
+
+
+
+

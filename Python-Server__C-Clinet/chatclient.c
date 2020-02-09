@@ -1,5 +1,5 @@
 /*
-Program Name: Client Portion of Client/Server Messanger Application
+Program Name: Client Portion of Client/Server Messenger Application
 Programmer Name: Ricky Salinas
 Course Name: OSU CS372
 Last Modified: 9 FEB 2020
@@ -17,10 +17,15 @@ Last Modified: 9 FEB 2020
 #include <ctype.h>
 
 /*
-Pre Conditions: This program and main function requires that the server python sctipt
+Pre Conditions: This program and main function requires that the server python script
 is running and listening to a high port. This port will be used to establish the connection
 and establish the clientserver relationship.
+
+Post Conditions: After executing the program correctly, a client/server relationship will be established
+the server python script until one decides to terminate the connection. This program will then and
+but can be re-run to re-establish the connection.
 */
+
 int main(int argc, char *argv[]){
 	int BUFFSIZE = 500;					// Message Size is Established
 	char mess[BUFFSIZE];				// Message Char Array is Initialized
